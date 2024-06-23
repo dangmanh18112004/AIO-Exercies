@@ -11,7 +11,7 @@ class Ward:
 	def count_doctor(self):
 		count = 0
 		for p in self.__listMember:
-			if p.get_job() == 'Doctor':
+			if isinstance(p, Doctor):
 				count += 1
 		return count
 
@@ -27,7 +27,7 @@ class Ward:
 		total_yob = 0
 		number_of_teachers = 0
 		for p in self.__listMember:
-			if p.get_job() == 'Teacher':
+			if isinstance(p, Teacher):
 				number_of_teachers += 1
 				total_yob += p.get_yob()
 		return total_yob / number_of_teachers
@@ -42,10 +42,7 @@ class Person(ABC):
 	
 	def get_yob(self):
 		return self._yob
-		
-	@abstractmethod
-	def get_job(self):
-		...
+	
 	@abstractmethod
 	def describe(self):
 		return f"Name: {self._name} - YoB: {self._yob}"
@@ -57,9 +54,6 @@ class Student(Person):
 
 	def describe(self):
 		print(f"Student - {super().describe()} - Grade: {self.__grade}")
-	
-	def get_job(self):
-		return 'Student'
 
 class Doctor(Person):
 	def __init__(self, name, yob, specialist) -> None:
@@ -68,9 +62,6 @@ class Doctor(Person):
 
 	def describe(self):
 		print(f"Doctor - {super().describe()} - Grade: {self.__specialist}")
-	
-	def get_job(self):
-		return "Doctor"
 
 class Teacher(Person):
 	def __init__(self, name, yob, subject) -> None:
@@ -79,9 +70,6 @@ class Teacher(Person):
 
 	def describe(self):
 		print(f"Teacher - {super().describe()} - Subject: {self.__subject}")
-
-	def get_job(self):
-		return "Teacher"
 
 if __name__ == '__main__':
 	# 2a)
