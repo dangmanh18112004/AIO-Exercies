@@ -1,7 +1,9 @@
+from collections import deque
+
 class Queue:
 	def __init__(self, capacity):
 		self.__capacity = capacity
-		self.__data = []
+		self.__data = deque() # Using deque to optimize than list
 
 	def is_empty(self):
 		return len(self.__data) == 0
@@ -10,9 +12,13 @@ class Queue:
 		return len(self.__data) == self.__capacity
 	
 	def dequeue(self):
-		return self.__data.pop(0)
+		if self.is_empty():
+			raise Exception("Underflow")
+		return self.__data.popleft()
 	
 	def enqueue(self, value):
+		if self.is_full():
+			raise Exception("Overflow")
 		self.__data.append(value)
 
 	def front(self):
