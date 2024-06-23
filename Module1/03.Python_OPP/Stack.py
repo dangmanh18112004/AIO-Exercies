@@ -10,9 +10,13 @@ class Stack:
 		return len(self.__data) == self.__capacity
 	
 	def pop(self):
+		if self.is_empty():
+			raise Exception("Underflow")
 		return self.__data.pop(-1)
 	
 	def push(self, value):
+		if self.is_full():
+			raise Exception("Overflow")
 		self.__data.append(value)
 
 	def top(self):
